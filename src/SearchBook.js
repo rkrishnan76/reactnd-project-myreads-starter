@@ -25,13 +25,21 @@ class SearchBook extends Component {
     else{
     //this.setState({searchResult: []});
     BooksAPI.search(query,10).then((searchResult) => {
-      if(searchResult===null){
+      if(searchResult instanceof Array) {
+        this.setState({searchResult})
+      } else  {
         this.setState({searchResult: []});
       }
-      else{
-      this.setState({searchResult})
-    }
     })
+    // BooksAPI.search(query,10).then((searchResult) => {
+    //   if(searchResult===null){
+    //     this.setState({searchResult: []});
+    //   }
+    //   else{
+    //   this.setState({searchResult})
+    // }
+    // })
+
   }
   }
 
@@ -64,11 +72,11 @@ class SearchBook extends Component {
       <div className='search-books-results'>
       <ol className='books-grid'>
             {
-              (displayingBooks instanceOf JSONArray &&  (displayingBooks.map((book) => (
+              (displayingBooks.map((book) => (
                     <Book book={book} key={book.id}
                         onShelfChange={this.props.onShelfChange}
                       />
-            ))))}
+            )))}
 
           </ol>
           </div>
