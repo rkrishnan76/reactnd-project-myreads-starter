@@ -3,18 +3,36 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import escapeRegExp from 'escape-string-regexp'
 import Book from './Book'
+import * as BooksAPI from './BooksAPI'
 
 class SearchBook extends Component {
-  static propTypes = {
-    books: PropTypes.array.isRequired
-  }
+
 
   state = {
-    query : ''
+    query : '',
+    searchResult: []
+  }
+
+  componentDidMount() {
+    this.setState({searchResult: []});
   }
 
   updateQuery = (query) => {
     this.setState({ query: query.trim() })
+    if(query===''){
+      this.setState({searchResult: []});
+    }
+    else{
+    //this.setState({searchResult: []});
+    BooksAPI.search(query,10).then((searchResult) => {
+      if(searchResult===null){
+        this.setState({searchResult: []});
+      }
+      else{
+      this.setState({searchResult})
+    }
+    })
+  }
   }
 
   clearQuery = () => {
@@ -24,17 +42,16 @@ class SearchBook extends Component {
 
 
   render() {
-    const { query } = this.state
-    const { books } = this.props
+    const { query } = this.state.query
+
 
     let displayingBooks
+     displayingBooks = this.state.searchResult
 
-    if (query) {
-          const match = new RegExp(escapeRegExp(query), 'i')
-          displayingBooks = books.filter((book) => match.test(book.title) || match.test(book.authors))
-        } else {
-          displayingBooks = books
-        }
+    //  if ( this.state.query.trim()==='') {
+    //        displayingBooks = this.props.myShelfBooks
+    //      }
+
 
     return(
     <div className='search-books'>
@@ -46,11 +63,13 @@ class SearchBook extends Component {
     </div>
       <div className='search-books-results'>
       <ol className='books-grid'>
-            {displayingBooks.map((book) => (
-              <li key={book.id}>
-                <Book book={book}/>
-              </li>
-            ))}
+            {
+              (displayingBooks instanceOf JSONArray &&  (displayingBooks.map((book) => (
+                    <Book book={book} key={book.id}
+                        onShelfChange={this.props.onShelfChange}
+                      />
+            ))))}
+
           </ol>
           </div>
     </div>
