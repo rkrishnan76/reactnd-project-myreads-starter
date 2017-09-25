@@ -4,7 +4,6 @@ import { Route } from 'react-router-dom';
 import BookShelf from './BookShelf'
 import SearchBook from './SearchBook'
 import './App.css'
-import serializeForm from 'form-serialize'
 
 class BooksApp extends React.Component {
   // state = {
@@ -20,12 +19,10 @@ class BooksApp extends React.Component {
   state = {
     shelfMap: [{"currentlyReading":"Currently Reading"}, {"wantToRead":"Want to Read"}, {"read":"Read"}],
     books: []
-    //searchResult: []
   }
 
   componentDidMount() {
     this.getBooks();
-    //this.bookSearch()
   }
 
   updateBookStatus(book,shelf){
@@ -54,7 +51,7 @@ class BooksApp extends React.Component {
                         }}/>
         )}/>
         <Route path='/search' render = {() => (
-          <SearchBook myShelfBooks={this.state.books} onShelfChange={(book, shelf) => {
+          <SearchBook onShelfChange={(book, shelf) => {
                 this.updateBookStatus(book, shelf)
               }} />
         )}/>
