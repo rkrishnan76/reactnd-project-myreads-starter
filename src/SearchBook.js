@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import escapeRegExp from 'escape-string-regexp'
 import Book from './Book'
 import * as BooksAPI from './BooksAPI'
 
@@ -18,12 +16,11 @@ class SearchBook extends Component {
   }
 
   updateQuery = (query) => {
-    this.setState({ query: query.trim() })
+    this.setState({ query: query.trim() });
     if(query===''){
       this.setState({searchResult: []});
     }
     else{
-    //this.setState({searchResult: []});
     BooksAPI.search(query,10).then((searchResult) => {
       if(searchResult instanceof Array) {
         this.setState({searchResult})
@@ -31,14 +28,6 @@ class SearchBook extends Component {
         this.setState({searchResult: []});
       }
     })
-    // BooksAPI.search(query,10).then((searchResult) => {
-    //   if(searchResult===null){
-    //     this.setState({searchResult: []});
-    //   }
-    //   else{
-    //   this.setState({searchResult})
-    // }
-    // })
 
   }
   }
@@ -52,15 +41,6 @@ class SearchBook extends Component {
   render() {
     const { query } = this.state.query
 
-
-    let displayingBooks
-     displayingBooks = this.state.searchResult
-
-    //  if ( this.state.query.trim()==='') {
-    //        displayingBooks = this.props.myShelfBooks
-    //      }
-
-
     return(
     <div className='search-books'>
     <div className='search-books-bar'>
@@ -71,8 +51,7 @@ class SearchBook extends Component {
     </div>
       <div className='search-books-results'>
       <ol className='books-grid'>
-            {
-              (displayingBooks.map((book) => (
+            {(this.state.searchResult.map((book) => (
                     <Book book={book} key={book.id}
                         onShelfChange={this.props.onShelfChange}
                       />
