@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import escapeRegExp from 'escape-string-regexp'
 import Book from './Book'
 
 class BookShelf extends Component {
@@ -11,7 +9,7 @@ class BookShelf extends Component {
     return (
       <div>
       <div className="list-books-title">
-          <h1>Krish's book shelf</h1>
+          <h1>Krishs book shelf</h1>
         </div>
       <div className="list-books-content">
           <div>
