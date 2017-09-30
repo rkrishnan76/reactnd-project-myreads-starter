@@ -21,8 +21,19 @@ class SearchBook extends Component {
       this.setState({searchResult: []});
     }
     else{
-    BooksAPI.search(query,10).then((searchResult) => {
+    BooksAPI.search(query).then((searchResult) => {
       if(searchResult instanceof Array) {
+        const myShelfBooks = this.props.myShelfBooks;
+        for (let i in myShelfBooks){
+      	for (let k in searchResult){
+        	if(searchResult[k].id === myShelfBooks[i].id){
+          	searchResult[k] = myShelfBooks[i]
+          }
+          else {
+             searchResult[k].shelf = 'none'
+           }
+        }
+      }
         this.setState({searchResult})
       } else  {
         this.setState({searchResult: []});
@@ -51,12 +62,12 @@ class SearchBook extends Component {
     </div>
       <div className='search-books-results'>
       <ol className='books-grid'>
-            {(this.state.searchResult.map((book) => (
-                    <Book book={book} key={book.id}
-                        onShelfChange={this.props.onShelfChange}
-                      />
-            )))}
+      {(this.state.searchResult.map((book) => (
+              <Book book={book} key={book.id}
+                  onShelfChange={this.props.onShelfChange}
+                />
 
+      )))}
           </ol>
           </div>
     </div>
