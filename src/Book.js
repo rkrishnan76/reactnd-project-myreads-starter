@@ -9,7 +9,7 @@ class Book extends Component {
 
   render() {
     const  book  = this.props.book
-  
+
     return(
       <div className="book">
         <div className="book-top">
