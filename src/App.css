@@ -161,6 +161,10 @@ body, .app {
   cursor: pointer;
 }
 
+.responsive-image{
+    width: 100%;
+    background-size: 100% 100%;
+}
 /* book cover */
 
 .book-cover {
