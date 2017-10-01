@@ -3,14 +3,17 @@ import { Link } from 'react-router-dom'
 import Book from './Book'
 
 const BookShelf = function(props) {
+    const shelfMap= [{"currentlyReading":"Currently Reading"}, {"wantToRead":"Want to Read"}, {"read":"Read"}];
+    
     return (
+
       <div>
       <div className="list-books-title">
           <h1>Krishs book shelf</h1>
         </div>
       <div className="list-books-content">
           <div>
-            {props.shelfName.map((shelf, index) => {
+            {shelfMap.map((shelf, index) => {
               return <div key={index} className="bookshelf">
                 <h2 className="bookshelf-title">{Object.values(shelf)}</h2>
                 <div className="bookshelf-books">

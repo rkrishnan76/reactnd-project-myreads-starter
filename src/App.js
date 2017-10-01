@@ -7,7 +7,6 @@ import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    shelfMap: [{"currentlyReading":"Currently Reading"}, {"wantToRead":"Want to Read"}, {"read":"Read"}],
     shelfBooks: []
   }
 
@@ -36,8 +35,7 @@ class BooksApp extends React.Component {
       <div>
         <Route exact path='/' render = {() => (
           <BookShelf  myShelfBooks={this.state.shelfBooks}
-                      shelfName={this.state.shelfMap}
-                      onShelfChange={(book, shelf) => {
+                          onShelfChange={(book, shelf) => {
                           this.updateBookStatus(book, shelf)
                         }}/>
         )}/>
